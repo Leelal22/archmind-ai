@@ -1,13 +1,17 @@
 from fastapi import FastAPI
+from app.core.config import settings
 
 app = FastAPI(
-    title="ArchMind AI",
-    description="AI Native Software Architecture Generator",
-    version="1.0.0"
+    title=settings.app_name,
+    version=settings.app_version,
 )
+
 
 @app.get("/")
 async def root():
     return {
-        "message": "Welcome to ArchMind AI 🚀"
+        "app": settings.app_name,
+        "version": settings.app_version,
+        "database": settings.database_url.split("@")[-1],
+        "message": "Configuration Loaded Successfully 🚀"
     }
